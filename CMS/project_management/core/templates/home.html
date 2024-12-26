@@ -1,0 +1,13 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h1>Welcome to the Project Management System</h1>
+  <p>This is your home page. You can manage clients, projects, and users here.</p>
+  
+  <h2>Quick Links</h2>
+  <ul>
+    <li><a href="{% url 'client_list' %}">View Clients</a></li>
+    <li><a href="{% url 'projects_for_user' %}">View Your Projects</a></li>
+    <li><a href="{% url 'register_client' %}">Register a New Client</a></li>
+  </ul>
+{% endblock %}

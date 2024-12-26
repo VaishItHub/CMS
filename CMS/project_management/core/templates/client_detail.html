@@ -1,0 +1,15 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h1>{{ client.name }} - {{ client.email }}</h1>
+  <h2>Projects</h2>
+  <ul>
+    {% for project in client.projects.all %}
+      <li>
+        <a href="{% url 'edit_project' project.id %}">{{ project.name }}</a> - 
+        <a href="{% url 'delete_project' project.id %}">Delete</a>
+      </li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'add_project' client.id %}">Add New Project</a>
+{% endblock %}

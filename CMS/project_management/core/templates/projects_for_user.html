@@ -1,0 +1,64 @@
+{% comment %} {% extends 'base_generic.html' %}
+
+{% block content %}
+  <h1>Your Projects</h1>
+  <ul>
+    {% for project in projects %}
+      <li>{{ project.name }} - {{ project.client.name }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %} {% endcomment %}
+
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<h1>My Assigned Projects</h1>
+
+<!-- Display List of Projects -->
+{% if projects %}
+    <ul>
+        {% for project in projects %}
+            <li>
+                <strong>{{ project.name }}</strong><br>
+                Description: {{ project.description }}<br>
+                Client: {{ project.client.name }}<br>
+                Start Date: {{ project.start_date }}<br>
+                End Date: {{ project.end_date }}<br>
+                <a href="{% url 'edit_project' project.id %}">Edit</a> |
+                <a href="{% url 'delete_project' project.id %}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No projects assigned to you.</p>
+{% endif %}
+
+<hr>
+
+<!-- Add New Project Form -->
+<h2>Add New Project</h2>
+<form method="post" action="{% url 'add_project' client_id=client.id %}">
+    {% csrf_token %}
+    <p><label for="name">Project Name:</label><br>
+    <input type="text" id="name" name="name" required></p>
+
+    <p><label for="description">Description:</label><br>
+    <textarea id="description" name="description" rows="4" required></textarea></p>
+
+    <p><label for="start_date">Start Date:</label><br>
+    <input type="date" id="start_date" name="start_date" required></p>
+
+    <p><label for="end_date">End Date:</label><br>
+    <input type="date" id="end_date" name="end_date" required></p>
+
+    <p><label for="client">Client:</label><br>
+    <select id="client" name="client" required>
+        {% for client in clients %}
+            <option value="{{ client.id }}">{{ client.name }}</option>
+        {% endfor %}
+    </select></p>
+
+    <button type="submit">Add Project</button>
+</form>
+{% endblock %}
+

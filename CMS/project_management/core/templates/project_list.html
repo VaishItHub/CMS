@@ -1,0 +1,25 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h1>Project List</h1>
+
+  <!-- Check if there are any projects -->
+  {% if projects %}
+    <ul>
+      {% for project in projects %}
+        <li>
+          <strong>{{ project.name }}</strong><br>
+          Description: {{ project.description }}<br>
+          Client: {{ project.client.name }}<br>
+          Start Date: {{ project.start_date }}<br>
+          End Date: {{ project.end_date }}<br>
+          <!-- Links to edit or delete projects -->
+          <a href="{% url 'edit_project' project.id %}">Edit</a> |
+          <a href="{% url 'delete_project' project.id %}">Delete</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No projects found.</p>
+  {% endif %}
+{% endblock %}

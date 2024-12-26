@@ -1,0 +1,11 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h1>Are you sure you want to delete the client "{{ client.name }}"?</h1>
+  <p>This action cannot be undone.</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Yes, delete client</button>
+  </form>
+  <a href="{% url 'client_list' %}">Cancel</a>
+{% endblock %}
